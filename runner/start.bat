@@ -1,0 +1,2 @@
+for /f "delims== tokens=1,2" %%G in (config.txt) do set %%G=%%H
+%java8ExePath% -Djava.library.path=.\lib\ -DnirCmd.path=".\bin\nircmd.exe " -jar .\bin\arduino-serial-1.0-SNAPSHOT-jar-with-dependencies.jar 
