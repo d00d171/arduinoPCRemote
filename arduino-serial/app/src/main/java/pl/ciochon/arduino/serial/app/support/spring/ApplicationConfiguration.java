@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Import;
 import pl.ciochon.arduino.serial.app.listener.ContextRefreshedListener;
 import pl.ciochon.arduino.serial.core.support.spring.CoreConfiguration;
 import pl.ciochon.arduino.serial.menu.support.spring.MenuConfiguration;
+import pl.ciochon.arduino.serial.menu.windows.support.spring.WindowsMenuConfiguration;
 import pl.ciochon.arduino.serial.pilot.carmp3.support.spring.CarMp3PilotConfiguration;
 import pl.ciochon.arduino.serial.pilot.tv.support.spring.TvPilotConfiguration;
 
@@ -14,7 +15,7 @@ import pl.ciochon.arduino.serial.pilot.tv.support.spring.TvPilotConfiguration;
  */
 @Configuration
 @Import({CoreConfiguration.class, PropertySourceConfiguration.class, TvPilotConfiguration.class,
-        MenuStatesConfiguration.class, MenuConfiguration.class, CarMp3PilotConfiguration.class,})
+        MenuStatesConfiguration.class, MenuConfiguration.class, CarMp3PilotConfiguration.class, WindowsMenuConfiguration.class})
 public class ApplicationConfiguration {
 
     @Bean

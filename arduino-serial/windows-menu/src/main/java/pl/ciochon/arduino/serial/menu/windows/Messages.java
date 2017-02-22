@@ -13,4 +13,10 @@ public class Messages {
 
     public String MENU_SCROLLE = "PRZEWIJANIE MENU";
 
+    public String SYSTEM = "SYSTEM";
+
+    public String MEDIA_PLAYER_CLASSIC = "MEDIA PLAYER CLASSIC";
+
+    public String DELAYED_SHUTDOWN = "PLANUJ WYŁĄCZANIE";
+
 }

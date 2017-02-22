@@ -6,6 +6,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import pl.ciochon.arduino.serial.core.connection.Connection;
 import pl.ciochon.arduino.serial.core.connection.SerialListener;
 import pl.ciochon.arduino.serial.menu.Menu;
+import pl.ciochon.arduino.serial.menu.windows.WindowsMenuController;
 
 /**
  * Created by Konrad Ciochoń on 2017-02-11.
@@ -18,10 +19,13 @@ public class ContextRefreshedListener implements ApplicationListener<ContextRefr
 
     private Menu menu;
 
+    private WindowsMenuController windowsMenuController;
+
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         connection.addEventListener(serialListener);
         try {
             Thread.sleep(2000);
+            windowsMenuController.initialize();
             menu.initialize();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -41,5 +45,10 @@ public class ContextRefreshedListener implements ApplicationListener<ContextRefr
     @Autowired
     public void setMenu(Menu menu) {
         this.menu = menu;
+    }
+
+    @Autowired
+    public void setWindowsMenuController(WindowsMenuController windowsMenuController) {
+        this.windowsMenuController = windowsMenuController;
     }
 }

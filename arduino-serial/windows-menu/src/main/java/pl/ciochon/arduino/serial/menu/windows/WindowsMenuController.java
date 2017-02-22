@@ -20,23 +20,37 @@ public class WindowsMenuController {
     @Autowired
     private Fonts fonts;
 
+    private boolean visible = false;
+
     private JWindow window;
     private JLabel header;
     private JComponent centerPanel;
     private JComponent footer;
 
-    public void initialize(Object[] options) {
+    public void initialize() {
         window = createWindow();
         centerWindow();
         header = createWindowHeader();
         window.add(header, BorderLayout.NORTH);
-        centerPanel = createOptions(options);
-        window.add(centerPanel, BorderLayout.CENTER);
         footer = createFooter();
         window.add(footer, BorderLayout.SOUTH);
     }
 
+    public void setCenterPanel(JComponent component) {
+        if (centerPanel != null) {
+            window.remove(centerPanel);
+        }
+        centerPanel = component;
+        window.add(centerPanel, BorderLayout.CENTER);
+        window.revalidate();
+    }
+
+    public JComponent getCenterPanel() {
+        return centerPanel;
+    }
+
     public void toggleVisibility(boolean visible) {
+        this.visible = visible;
         window.setVisible(visible);
     }
 
@@ -68,17 +82,6 @@ public class WindowsMenuController {
         return result;
     }
 
-    private JScrollPane createOptions(Object[] options) {
-        DefaultListModel model = new DefaultListModel();
-        JList list = new JList(model);
-        JScrollPane pane = new JScrollPane(list);
-        for (Object obj : options) {
-            model.addElement(obj);
-        }
-        list.setSelectedIndex(0);
-        return pane;
-    }
-
     private JWindow createWindow() {
         JWindow window = new JWindow();
         window.setSize(600, 300);
@@ -107,4 +110,7 @@ public class WindowsMenuController {
         window.setLocation(x / 2, y / 2);
     }
 
+    public boolean isVisible() {
+        return visible;
+    }
 }

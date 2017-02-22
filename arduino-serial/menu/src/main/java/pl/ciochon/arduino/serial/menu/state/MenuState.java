@@ -2,7 +2,9 @@ package pl.ciochon.arduino.serial.menu.state;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.ciochon.arduino.serial.core.command.CommandExecutor;
-import pl.ciochon.arduino.serial.lcdWriter.LcdScreenController;
+import pl.ciochon.arduino.serial.menu.windows.MenuUtil;
+import pl.ciochon.arduino.serial.menu.windows.Messages;
+import pl.ciochon.arduino.serial.menu.windows.WindowsMenuController;
 import pl.ciochon.arduino.serial.pilot.core.PilotKey;
 
 import java.util.Map;
@@ -13,9 +15,17 @@ import java.util.Map;
  */
 public abstract class MenuState {
 
+    @Autowired
     protected CommandExecutor commandExecutor;
 
-    protected LcdScreenController lcdScreenController;
+    @Autowired
+    protected WindowsMenuController windowsMenuController;
+
+    @Autowired
+    protected MenuUtil menuUtil;
+
+    @Autowired
+    protected Messages messages;
 
     protected Map<PilotKey, String> menuTransitionMap;
 
@@ -29,7 +39,8 @@ public abstract class MenuState {
         return menuTransitionMap;
     }
 
-    public void onKeyPress(PilotKey pilotKey) {
+    public boolean onKeyPress(PilotKey pilotKey) {
+        return false;
     }
 
     public void beforeExit() {
@@ -40,14 +51,16 @@ public abstract class MenuState {
         System.out.println("Transition to state: " + getName());
     }
 
-    @Autowired
-    public void setLcdScreenController(LcdScreenController lcdScreenController) {
-        this.lcdScreenController = lcdScreenController;
+    public void showMenu() {
+        if (!windowsMenuController.isVisible()) {
+            windowsMenuController.toggleVisibility(true);
+        }
     }
 
-    @Autowired
-    public void setCommandExecutor(CommandExecutor commandExecutor) {
-        this.commandExecutor = commandExecutor;
+    public void hideMenu() {
+        if (windowsMenuController.isVisible()) {
+            windowsMenuController.toggleVisibility(false);
+        }
     }
 
 }

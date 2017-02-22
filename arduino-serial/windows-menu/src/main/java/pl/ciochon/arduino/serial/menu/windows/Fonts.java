@@ -11,4 +11,6 @@ public class Fonts {
 
     public Font FOOTER_FONT = new Font("Verdana", Font.PLAIN, 25);
 
+    public Font OPTIONS_FONT = new Font("Verdana", Font.PLAIN, 25);
+
 }

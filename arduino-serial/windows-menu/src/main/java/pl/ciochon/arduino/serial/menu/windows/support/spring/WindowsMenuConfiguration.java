@@ -2,10 +2,7 @@ package pl.ciochon.arduino.serial.menu.windows.support.spring;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import pl.ciochon.arduino.serial.menu.windows.Fonts;
-import pl.ciochon.arduino.serial.menu.windows.Icons;
-import pl.ciochon.arduino.serial.menu.windows.Messages;
-import pl.ciochon.arduino.serial.menu.windows.WindowsMenuController;
+import pl.ciochon.arduino.serial.menu.windows.*;
 
 /**
  * Created by Konrad Ciochoń on 2017-02-16.
@@ -31,6 +28,11 @@ public class WindowsMenuConfiguration {
     @Bean
     public Fonts fonts() {
         return new Fonts();
+    }
+
+    @Bean
+    public MenuUtil menuUtil() {
+        return new MenuUtil();
     }
 
 }

@@ -1,13 +1,14 @@
 package pl.ciochon.arduino.serial.menu.state.impl;
 
-import pl.ciochon.arduino.serial.lcdWriter.util.BigSign;
-import pl.ciochon.arduino.serial.lcdWriter.util.BigTextBuilder;
 import pl.ciochon.arduino.serial.menu.state.MenuState;
+import pl.ciochon.arduino.serial.pilot.core.PilotKey;
+
+import javax.swing.*;
 
 /**
  * Created by Konrad Ciochoń on 2017-02-11.
  */
-public class IdleState extends MenuState{
+public class IdleState extends MenuState {
 
     public static final String NAME = "IDLE";
 
@@ -17,9 +18,36 @@ public class IdleState extends MenuState{
     }
 
     @Override
-    public void onTransition(){
+    public void onTransition() {
         super.onTransition();
-        lcdScreenController.write(new BigTextBuilder().addS(BigSign.I_LETTER).addS(BigSign.D_LETTER).addS(BigSign.L_LETTER).add(BigSign.E_LETTER).build());
+        windowsMenuController.setCenterPanel(menuUtil.createOptions(new String[]{messages.SYSTEM, messages.MEDIA_PLAYER_CLASSIC}));
+    }
+
+    public boolean onKeyPress(PilotKey pilotKey) {
+        boolean wasVisible = false;
+        if (windowsMenuController.isVisible()) {
+            wasVisible = true;
+        }
+        if (!wasVisible) {
+            showMenu();
+            return true;
+        } else {
+            switch (pilotKey) {
+                case EQ:
+                    hideMenu();
+                    return true;
+                case CHANNEL_PLUS:
+                    JScrollPane scrollPane = (JScrollPane) windowsMenuController.getCenterPanel();
+                    menuUtil.scrollPaneDown(scrollPane);
+                    return true;
+                case CHANNEL_MINUS:
+                    JScrollPane scrollPane2 = (JScrollPane) windowsMenuController.getCenterPanel();
+                    menuUtil.scrollPaneUp(scrollPane2);
+                    return true;
+                default:
+                    return false;
+            }
+        }
     }
 
 }

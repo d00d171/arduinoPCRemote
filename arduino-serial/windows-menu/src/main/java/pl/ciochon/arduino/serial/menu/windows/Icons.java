@@ -1,34 +1,34 @@
 package pl.ciochon.arduino.serial.menu.windows;
 
-import javax.imageio.ImageIO;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.annotation.PostConstruct;
 import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 /**
  * Created by Konrad Ciochoń on 2017-02-21.
  */
 public class Icons {
 
+    @Autowired
+    private MenuUtil menuUtil;
+
     private static final int ICON_WIDHT = 60;
     private static final int ICON_HEIGHT = 60;
 
-    public JLabel CHANNEL_MINUS_ICON = createImage(getPath("CH-.png"), ICON_WIDHT, ICON_HEIGHT);
-    public JLabel CHANNEL_PLUS_ICON = createImage(getPath("CH+.png"), ICON_WIDHT, ICON_HEIGHT);
-    public JLabel CHANNEL_ICON = createImage(getPath("CH.png"), ICON_WIDHT, ICON_HEIGHT);
-    public JLabel EQ_ICON = createImage(getPath("EQ.png"), ICON_WIDHT, ICON_HEIGHT);
+    public JLabel CHANNEL_MINUS_ICON;
+    public JLabel CHANNEL_PLUS_ICON;
+    public JLabel CHANNEL_ICON;
+    public JLabel EQ_ICON;
 
-    private JLabel createImage(String path, int width, int height) {
-        BufferedImage myPicture = null;
-        try {
-            myPicture = ImageIO.read(new File(path));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return new JLabel(new ImageIcon(myPicture.getScaledInstance(width, height, Image.SCALE_SMOOTH)));
+    @PostConstruct
+    public void init() {
+        CHANNEL_MINUS_ICON = menuUtil.createImage(getPath("CH-.png"), ICON_WIDHT, ICON_HEIGHT);
+        CHANNEL_PLUS_ICON = menuUtil.createImage(getPath("CH+.png"), ICON_WIDHT, ICON_HEIGHT);
+        CHANNEL_ICON = menuUtil.createImage(getPath("CH.png"), ICON_WIDHT, ICON_HEIGHT);
+        EQ_ICON = menuUtil.createImage(getPath("EQ.png"), ICON_WIDHT, ICON_HEIGHT);
     }
+
 
     private String getPath(String name) {
         return getClass().getClassLoader().getResource(name).getFile();

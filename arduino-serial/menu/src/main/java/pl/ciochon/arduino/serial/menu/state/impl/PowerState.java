@@ -1,7 +1,5 @@
 package pl.ciochon.arduino.serial.menu.state.impl;
 
-import pl.ciochon.arduino.serial.lcdWriter.util.BigSign;
-import pl.ciochon.arduino.serial.lcdWriter.util.BigTextBuilder;
 import pl.ciochon.arduino.serial.menu.state.MenuState;
 
 /**
@@ -19,7 +17,6 @@ public class PowerState extends MenuState {
     @Override
     public void onTransition() {
         super.onTransition();
-        lcdScreenController.write(new BigTextBuilder().addS(BigSign.P_LETTER).addS(BigSign.O_LETTER).add(BigSign.W_LETTER).build());
     }
 
 }

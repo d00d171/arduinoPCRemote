@@ -13,7 +13,7 @@ public class MenuTest {
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(WindowsMenuConfiguration.class);
 
         WindowsMenuController windowsMenuController = applicationContext.getBean(WindowsMenuController.class);
-        windowsMenuController.initialize(new String[]{"a", "b", "c"});
+        windowsMenuController.initialize();
         windowsMenuController.toggleVisibility(true);
     }
 
