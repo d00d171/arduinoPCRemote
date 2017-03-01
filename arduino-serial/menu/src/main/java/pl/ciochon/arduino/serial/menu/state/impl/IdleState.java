@@ -1,9 +1,12 @@
 package pl.ciochon.arduino.serial.menu.state.impl;
 
 import pl.ciochon.arduino.serial.menu.state.MenuState;
+import pl.ciochon.arduino.serial.menu.state.util.Option;
+import pl.ciochon.arduino.serial.menu.windows.view.ViewableScrollPane;
 import pl.ciochon.arduino.serial.pilot.core.PilotKey;
 
-import javax.swing.*;
+import javax.annotation.PostConstruct;
+import java.util.Optional;
 
 /**
  * Created by Konrad Ciochoń on 2017-02-11.
@@ -11,6 +14,10 @@ import javax.swing.*;
 public class IdleState extends MenuState {
 
     public static final String NAME = "IDLE";
+
+    private Option[] optionList = new Option[]{Option.MM_SYSTEM, Option.MM_MPC};
+
+    private ViewableScrollPane<Option> viewableScrollPane;
 
     @Override
     public String getName() {
@@ -20,34 +27,39 @@ public class IdleState extends MenuState {
     @Override
     public void onTransition() {
         super.onTransition();
-        windowsMenuController.setCenterPanel(menuUtil.createOptions(new String[]{messages.SYSTEM, messages.MEDIA_PLAYER_CLASSIC}));
+        windowsMenuController.setHeder("header.mainMenu");
+        windowsMenuController.setCenterPanel(viewableScrollPane.getView());
     }
 
-    public boolean onKeyPress(PilotKey pilotKey) {
-        boolean wasVisible = false;
-        if (windowsMenuController.isVisible()) {
-            wasVisible = true;
+    @Override
+    public String onKeyPressAfterShow(PilotKey pilotKey) {
+        switch (pilotKey) {
+            case EQ:
+                hideMenu();
+                break;
+            case CHANNEL_PLUS:
+                viewableScrollPane.scrollDown();
+                break;
+            case CHANNEL_MINUS:
+                viewableScrollPane.scrollUp();
+                break;
+            case CHANNEL:
+                switch (viewableScrollPane.getSelectedValue()) {
+                    case MM_MPC:
+                        return MpcState.NAME;
+                    case MM_SYSTEM:
+                        return SysState.NAME;
+                    default:
+                        return null;
+                }
         }
-        if (!wasVisible) {
-            showMenu();
-            return true;
-        } else {
-            switch (pilotKey) {
-                case EQ:
-                    hideMenu();
-                    return true;
-                case CHANNEL_PLUS:
-                    JScrollPane scrollPane = (JScrollPane) windowsMenuController.getCenterPanel();
-                    menuUtil.scrollPaneDown(scrollPane);
-                    return true;
-                case CHANNEL_MINUS:
-                    JScrollPane scrollPane2 = (JScrollPane) windowsMenuController.getCenterPanel();
-                    menuUtil.scrollPaneUp(scrollPane2);
-                    return true;
-                default:
-                    return false;
-            }
-        }
+        return null;
+    }
+
+    @PostConstruct
+    public void init() {
+        viewableScrollPane = new ViewableScrollPane(optionList, fonts.OPTIONS_FONT, Optional.of(viewableListCellRenderer));
     }
 
 }
+

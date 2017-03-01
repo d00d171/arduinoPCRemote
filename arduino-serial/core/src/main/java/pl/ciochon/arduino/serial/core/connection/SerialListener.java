@@ -7,7 +7,7 @@ import pl.ciochon.arduino.serial.core.connection.event.dispatcher.EventDispatche
 
 import java.io.BufferedReader;
 
-public class SerialListener implements SerialPortEventListener{
+public class SerialListener implements SerialPortEventListener {
 
     private BufferedReader input;
     private EventDispatcher eventDispatcher;
@@ -19,7 +19,7 @@ public class SerialListener implements SerialPortEventListener{
                 System.out.println(inputValue);
                 eventDispatcher.dispatch(inputValue);
             } catch (Exception e) {
-                //e.printStackTrace();
+                e.printStackTrace();
             }
         }
     }

@@ -8,7 +8,6 @@ import pl.ciochon.arduino.serial.core.exception.ConfigurationException;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.annotation.Resource;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -25,13 +24,17 @@ public class Connection {
     private BufferedReader input;
     private OutputStream output;
 
-    /** Milliseconds to block while waiting for port open */
+    /**
+     * Milliseconds to block while waiting for port open
+     */
     private static final int TIME_OUT = 2000;
-    /** Default bits per second for COM port. */
+    /**
+     * Default bits per second for COM port.
+     */
     private static final int DATA_RATE = 9600;
 
 
-    public void addEventListener(SerialPortEventListener eventListener){
+    public void addEventListener(SerialPortEventListener eventListener) {
         try {
             serialPort.addEventListener(eventListener);
         } catch (TooManyListenersException e) {

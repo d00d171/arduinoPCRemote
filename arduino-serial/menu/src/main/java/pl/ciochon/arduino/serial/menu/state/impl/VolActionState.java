@@ -27,20 +27,19 @@ public class VolActionState extends MenuState {
     }
 
     @Override
-    public boolean onKeyPress(PilotKey pilotKey) {
+    public String onKeyPress(PilotKey pilotKey) {
         switch (pilotKey) {
             case VOLUME_UP:
                 commandExecutor.execute(volumeUpCommand);
-                return true;
+                break;
             case VOLUME_DOWN:
                 commandExecutor.execute(volumeDownCommand);
-                return true;
+                break;
             case ZERO:
                 commandExecutor.execute(muteCommand);
-                return true;
-            default:
-                return false;
+                break;
         }
+        return null;
     }
 
     public void onTransition() {

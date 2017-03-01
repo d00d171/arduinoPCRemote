@@ -25,14 +25,12 @@ public class Menu implements ApplicationContextAware {
     }
 
     public void interpretKeyPress(PilotKey pilotKey) {
-        if (!currentState.onKeyPress(pilotKey)) {
-            String menuStateName = currentState.getPossibleTransitions().get(pilotKey);
-            if (menuStateName != null) {
-                MenuState state = (MenuState) applicationContext.getBean(menuStateName);
-                currentState.beforeExit();
-                currentState = state;
-                currentState.onTransition();
-            }
+        String transitionToState = currentState.onKeyPress(pilotKey);
+        if (transitionToState != null) {
+            MenuState state = (MenuState) applicationContext.getBean(transitionToState);
+            currentState.beforeExit();
+            currentState = state;
+            currentState.onTransition();
         }
     }
 

@@ -1,6 +1,9 @@
 package pl.ciochon.arduino.serial.menu.windows;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import pl.ciochon.arduino.serial.menu.windows.util.Fonts;
+import pl.ciochon.arduino.serial.menu.windows.util.Icons;
+import pl.ciochon.arduino.serial.menu.windows.util.ViewValueResolver;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -12,7 +15,7 @@ import java.awt.*;
 public class WindowsMenuController {
 
     @Autowired
-    private Messages messages;
+    private ViewValueResolver viewValueResolver;
 
     @Autowired
     private Icons icons;
@@ -43,6 +46,7 @@ public class WindowsMenuController {
         centerPanel = component;
         window.add(centerPanel, BorderLayout.CENTER);
         window.revalidate();
+        window.repaint();
     }
 
     public JComponent getCenterPanel() {
@@ -54,6 +58,10 @@ public class WindowsMenuController {
         window.setVisible(visible);
     }
 
+    public void setHeder(String headerKey) {
+        this.header.setText(viewValueResolver.getViewValue(headerKey));
+    }
+
     private JPanel createFooter() {
         JPanel footer = new JPanel();
         footer.setLayout(new BorderLayout());
@@ -63,13 +71,13 @@ public class WindowsMenuController {
         firstRow.add(icons.CHANNEL_MINUS_ICON);
         firstRow.add(footerLabel(" / "));
         firstRow.add(icons.CHANNEL_PLUS_ICON);
-        firstRow.add(footerLabel(" - " + messages.MENU_SCROLLE));
+        firstRow.add(footerLabel(" - " + viewValueResolver.getViewValue("footer.menuScroll")));
 
         JPanel secondRow = new JPanel();
         secondRow.add(icons.CHANNEL_ICON);
-        secondRow.add(footerLabel(" - " + messages.APPROVE + " / "));
+        secondRow.add(footerLabel(" - " + viewValueResolver.getViewValue("footer.approve") + " / "));
         secondRow.add(icons.EQ_ICON);
-        secondRow.add(footerLabel(" - " + messages.BACK));
+        secondRow.add(footerLabel(" - " + viewValueResolver.getViewValue("footer.back")));
 
         footer.add(firstRow, BorderLayout.PAGE_START);
         footer.add(secondRow, BorderLayout.PAGE_END);
@@ -84,7 +92,7 @@ public class WindowsMenuController {
 
     private JWindow createWindow() {
         JWindow window = new JWindow();
-        window.setSize(600, 300);
+        window.setSize(700, 500);
         window.setAlwaysOnTop(true);
         window.setLocationByPlatform(true);
         window.setLayout(new BorderLayout());
@@ -92,7 +100,7 @@ public class WindowsMenuController {
     }
 
     private JLabel createWindowHeader() {
-        JLabel jLabel = new JLabel(messages.MAIN_MENU, JLabel.CENTER);
+        JLabel jLabel = new JLabel("", JLabel.CENTER);
         jLabel.setFont(fonts.HEADER_FONT);
         jLabel.setBackground(Color.CYAN);
         jLabel.setOpaque(true);

@@ -1,4 +1,4 @@
-package pl.ciochon.arduino.serial.menu.windows;
+package pl.ciochon.arduino.serial.menu.windows.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
