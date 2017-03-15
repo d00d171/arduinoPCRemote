@@ -5,14 +5,8 @@ package pl.ciochon.arduino.serial.core.command;
  */
 public abstract class BaseCmdStartCommand implements Command {
 
-    public void execute(String... argsList) throws Exception {
-
-        String args = "";
-        for (String arg : argsList) {
-            args += arg + " ";
-        }
-
-        Runtime.getRuntime().exec("cmd /c start " + getProgramToExecute() + " " + args);
+    public void execute() throws Exception {
+        Runtime.getRuntime().exec("cmd /c start " + getProgramToExecute() + " " + getArgs());
     }
 
     protected abstract String getProgramToExecute();

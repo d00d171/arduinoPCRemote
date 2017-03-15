@@ -1,6 +1,5 @@
 package pl.ciochon.arduino.serial.core.command;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 /**
@@ -8,12 +7,13 @@ import org.springframework.beans.factory.annotation.Value;
  */
 public abstract class BaseNIRCMDCommand extends BaseCmdStartCommand {
 
-    private String nirCmdPath;
+    //TODO koniecznie poprawic
+    private String nirCmdPath = "E:\\PROJECTS\\ArduinoSerialClient\\runner\\bin\\nircmd.exe";
 
     public abstract String getNirCmdArguments();
 
     protected String getProgramToExecute() {
-      return nirCmdPath + " " + getNirCmdArguments();
+        return nirCmdPath + " " + getNirCmdArguments();
     }
 
     @Value("${nir.cmd.path}")

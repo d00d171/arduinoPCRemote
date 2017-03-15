@@ -1,5 +1,9 @@
 package pl.ciochon.arduino.serial.app;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import pl.ciochon.arduino.serial.core.util.AppConfiguration;
+
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -8,6 +12,16 @@ import java.io.IOException;
 public class TestClass {
 
     public static void main(String[] args) {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        TestClass testClass = new TestClass();
+
+        try {
+            AppConfiguration appConfiguration = objectMapper.readValue(new File(testClass.getClass().getClassLoader().getResource("app.properties").getFile()), AppConfiguration.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         System.out.println(System.getProperty("nirCmd.path"));
 

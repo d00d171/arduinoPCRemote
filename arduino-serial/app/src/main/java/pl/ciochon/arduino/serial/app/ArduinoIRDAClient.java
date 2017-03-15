@@ -3,7 +3,7 @@ package pl.ciochon.arduino.serial.app;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import pl.ciochon.arduino.serial.app.support.spring.ApplicationConfiguration;
+import pl.ciochon.arduino.serial.support.spring.ApplicationConfiguration;
 
 public class ArduinoIRDAClient {
 
@@ -20,12 +20,6 @@ public class ArduinoIRDAClient {
             }
         };
         t.start();
-
-//        System.out.println("Started");
-//        while(true){
-//            int tmp = new InputStreamReader(System.in).read ();
-//            connection.getOutput().write(tmp);
-//        }
     }
 
 }
