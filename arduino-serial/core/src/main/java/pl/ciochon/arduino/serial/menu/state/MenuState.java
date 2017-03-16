@@ -8,10 +8,10 @@ import pl.ciochon.arduino.serial.core.command.impl.DelayedShutdownCommand;
 import pl.ciochon.arduino.serial.core.command.impl.MuteCommand;
 import pl.ciochon.arduino.serial.core.command.impl.VolumeChangeCommand;
 import pl.ciochon.arduino.serial.menu.state.impl.DelayedShutdownState;
-import pl.ciochon.arduino.serial.menu.windows.WindowsMenuController;
-import pl.ciochon.arduino.serial.menu.windows.util.Fonts;
-import pl.ciochon.arduino.serial.menu.windows.util.ViewValueResolver;
-import pl.ciochon.arduino.serial.menu.windows.view.ViewableListCellRenderer;
+import pl.ciochon.arduino.serial.menu.view.OSDMenuView;
+import pl.ciochon.arduino.serial.menu.view.ViewableListCellRenderer;
+import pl.ciochon.arduino.serial.menu.view.util.Fonts;
+import pl.ciochon.arduino.serial.menu.view.util.ViewValueResolver;
 import pl.ciochon.arduino.serial.pilot.event.PilotEvent;
 
 import java.util.Optional;
@@ -32,7 +32,7 @@ public abstract class MenuState {
     protected CommandExecutor commandExecutor;
 
     @Autowired
-    protected WindowsMenuController windowsMenuController;
+    protected OSDMenuView OSDMenuView;
 
     @Autowired
     protected Fonts fonts;
@@ -49,7 +49,7 @@ public abstract class MenuState {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                windowsMenuController.toggleVisibility(false);
+                OSDMenuView.toggleVisibility(false);
             }
         };
         if (timer != null) {
@@ -112,21 +112,21 @@ public abstract class MenuState {
     }
 
     private void toggleMenuVisibility() {
-        boolean value = !windowsMenuController.isVisible() ? true : false;
-        windowsMenuController.toggleVisibility(value);
+        boolean value = !OSDMenuView.isVisible() ? true : false;
+        OSDMenuView.toggleVisibility(value);
     }
 
     public boolean showMenu() {
-        if (!windowsMenuController.isVisible()) {
-            windowsMenuController.toggleVisibility(true);
+        if (!OSDMenuView.isVisible()) {
+            OSDMenuView.toggleVisibility(true);
             return true;
         }
         return false;
     }
 
     public boolean hideMenu() {
-        if (windowsMenuController.isVisible()) {
-            windowsMenuController.toggleVisibility(false);
+        if (OSDMenuView.isVisible()) {
+            OSDMenuView.toggleVisibility(false);
             return true;
         }
         return false;

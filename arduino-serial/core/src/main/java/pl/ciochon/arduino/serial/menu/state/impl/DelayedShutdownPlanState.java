@@ -29,8 +29,8 @@ public class DelayedShutdownPlanState extends MenuState {
     @Override
     public void onTransition() {
         super.onTransition();
-        windowsMenuController.setHeader("header.delayedShutdownPlan");
-        windowsMenuController.setCenterPanel(centerPanelContent);
+        OSDMenuView.setHeader("header.delayedShutdownPlan");
+        OSDMenuView.setCenterPanel(centerPanelContent);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class DelayedShutdownPlanState extends MenuState {
                 Long commandArg = getShutdownAfterInMinutes();
                 if (commandArg != null) {
                     commandExecutor.execute(new DelayedShutdownCommand(commandArg));
-                    windowsMenuController.toggleVisibility(false);
+                    OSDMenuView.toggleVisibility(false);
                     return IdleState.NAME;
                 } else {
                     return null;

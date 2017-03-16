@@ -3,7 +3,7 @@ package pl.ciochon.arduino.serial.menu.state.impl;
 import pl.ciochon.arduino.serial.core.command.impl.DelayedShutdownCancelCommand;
 import pl.ciochon.arduino.serial.menu.state.MenuState;
 import pl.ciochon.arduino.serial.menu.state.util.Option;
-import pl.ciochon.arduino.serial.menu.windows.view.ViewableScrollPane;
+import pl.ciochon.arduino.serial.menu.view.ViewableScrollPane;
 import pl.ciochon.arduino.serial.pilot.event.PilotEvent;
 
 import javax.annotation.PostConstruct;
@@ -28,8 +28,8 @@ public class DelayedShutdownState extends MenuState {
     @Override
     public void onTransition() {
         super.onTransition();
-        windowsMenuController.setHeader("header.delayedShutdown");
-        windowsMenuController.setCenterPanel(viewableScrollPane.getView());
+        OSDMenuView.setHeader("header.delayedShutdown");
+        OSDMenuView.setCenterPanel(viewableScrollPane.getView());
     }
 
     @Override
@@ -47,7 +47,7 @@ public class DelayedShutdownState extends MenuState {
                 switch (viewableScrollPane.getSelectedValue()) {
                     case DSS_CANCEL_PLANNED:
                         commandExecutor.execute(new DelayedShutdownCancelCommand());
-                        windowsMenuController.toggleVisibility(false);
+                        OSDMenuView.toggleVisibility(false);
                         return IdleState.NAME;
                     case DSS_PLAN:
                         return DelayedShutdownPlanState.NAME;

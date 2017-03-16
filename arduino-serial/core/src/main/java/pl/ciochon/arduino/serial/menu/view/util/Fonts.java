@@ -1,4 +1,4 @@
-package pl.ciochon.arduino.serial.menu.windows.util;
+package pl.ciochon.arduino.serial.menu.view.util;
 
 import java.awt.*;
 

@@ -1,4 +1,4 @@
-package pl.ciochon.arduino.serial.menu.windows.util;
+package pl.ciochon.arduino.serial.menu.view.util;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,6 +10,8 @@ import java.util.Properties;
  * Created by Konrad Ciochoń on 2017-02-24.
  */
 public class ViewValueResolver {
+
+
 
     private Properties properties;
 

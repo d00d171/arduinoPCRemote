@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Import;
  */
 @Configuration
 @Import({CoreConfiguration.class, PropertySourceConfiguration.class,
-        MenuStatesConfiguration.class, MenuConfiguration.class, BasePilotConfiguration.class, WindowsMenuConfiguration.class})
+        MenuStatesConfiguration.class, MenuConfiguration.class, BasePilotConfiguration.class, ViewsConfiguration.class})
 public class ApplicationConfiguration {
 
     @Bean

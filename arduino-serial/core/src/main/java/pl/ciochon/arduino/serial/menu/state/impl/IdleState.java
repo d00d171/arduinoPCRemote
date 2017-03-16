@@ -2,7 +2,7 @@ package pl.ciochon.arduino.serial.menu.state.impl;
 
 import pl.ciochon.arduino.serial.menu.state.MenuState;
 import pl.ciochon.arduino.serial.menu.state.util.Option;
-import pl.ciochon.arduino.serial.menu.windows.view.ViewableScrollPane;
+import pl.ciochon.arduino.serial.menu.view.ViewableScrollPane;
 import pl.ciochon.arduino.serial.pilot.event.PilotEvent;
 
 import javax.annotation.PostConstruct;
@@ -27,8 +27,8 @@ public class IdleState extends MenuState {
     @Override
     public void onTransition() {
         super.onTransition();
-        windowsMenuController.setHeader("header.mainMenu");
-        windowsMenuController.setCenterPanel(viewableScrollPane.getView());
+        OSDMenuView.setHeader("header.mainMenu");
+        OSDMenuView.setCenterPanel(viewableScrollPane.getView());
     }
 
     @Override

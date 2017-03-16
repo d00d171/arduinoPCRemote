@@ -1,8 +1,7 @@
-package pl.ciochon.arduino.serial.menu.windows.view;
+package pl.ciochon.arduino.serial.menu.view;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import pl.ciochon.arduino.serial.menu.windows.Viewable;
-import pl.ciochon.arduino.serial.menu.windows.util.ViewValueResolver;
+import pl.ciochon.arduino.serial.menu.view.util.ViewValueResolver;
 
 import javax.swing.*;
 import java.awt.*;

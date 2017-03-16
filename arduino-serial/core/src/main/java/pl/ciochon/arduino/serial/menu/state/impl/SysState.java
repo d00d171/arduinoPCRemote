@@ -3,7 +3,7 @@ package pl.ciochon.arduino.serial.menu.state.impl;
 import pl.ciochon.arduino.serial.core.command.impl.DelayedShutdownCommand;
 import pl.ciochon.arduino.serial.menu.state.MenuState;
 import pl.ciochon.arduino.serial.menu.state.util.Option;
-import pl.ciochon.arduino.serial.menu.windows.view.ViewableScrollPane;
+import pl.ciochon.arduino.serial.menu.view.ViewableScrollPane;
 import pl.ciochon.arduino.serial.pilot.event.PilotEvent;
 
 import javax.annotation.PostConstruct;
@@ -28,8 +28,8 @@ public class SysState extends MenuState {
     @Override
     public void onTransition() {
         super.onTransition();
-        windowsMenuController.setHeader("header.system");
-        windowsMenuController.setCenterPanel(viewableScrollPane.getView());
+        OSDMenuView.setHeader("header.system");
+        OSDMenuView.setCenterPanel(viewableScrollPane.getView());
     }
 
     @Override

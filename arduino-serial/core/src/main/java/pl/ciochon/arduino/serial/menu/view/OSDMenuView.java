@@ -1,9 +1,9 @@
-package pl.ciochon.arduino.serial.menu.windows;
+package pl.ciochon.arduino.serial.menu.view;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import pl.ciochon.arduino.serial.menu.windows.util.Fonts;
-import pl.ciochon.arduino.serial.menu.windows.util.Icons;
-import pl.ciochon.arduino.serial.menu.windows.util.ViewValueResolver;
+import pl.ciochon.arduino.serial.menu.view.util.Fonts;
+import pl.ciochon.arduino.serial.menu.view.util.Icons;
+import pl.ciochon.arduino.serial.menu.view.util.ViewValueResolver;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -12,7 +12,7 @@ import java.awt.*;
 /**
  * Created by Konrad Ciochoń on 2017-02-16.
  */
-public class WindowsMenuController {
+public class OSDMenuView {
 
     @Autowired
     private ViewValueResolver viewValueResolver;

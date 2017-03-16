@@ -1,6 +1,4 @@
-package pl.ciochon.arduino.serial.menu.windows.view;
-
-import pl.ciochon.arduino.serial.menu.windows.Viewable;
+package pl.ciochon.arduino.serial.menu.view;
 
 import javax.swing.*;
 import java.awt.*;

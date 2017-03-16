@@ -2,22 +2,22 @@ package pl.ciochon.arduino.serial.support.spring;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import pl.ciochon.arduino.serial.menu.windows.WindowsMenuController;
-import pl.ciochon.arduino.serial.menu.windows.util.Fonts;
-import pl.ciochon.arduino.serial.menu.windows.util.Icons;
-import pl.ciochon.arduino.serial.menu.windows.util.MenuUtil;
-import pl.ciochon.arduino.serial.menu.windows.util.ViewValueResolver;
-import pl.ciochon.arduino.serial.menu.windows.view.ViewableListCellRenderer;
+import pl.ciochon.arduino.serial.menu.view.OSDMenuView;
+import pl.ciochon.arduino.serial.menu.view.ViewableListCellRenderer;
+import pl.ciochon.arduino.serial.menu.view.util.Fonts;
+import pl.ciochon.arduino.serial.menu.view.util.Icons;
+import pl.ciochon.arduino.serial.menu.view.util.MenuUtil;
+import pl.ciochon.arduino.serial.menu.view.util.ViewValueResolver;
 
 /**
  * Created by Konrad Ciochoń on 2017-02-16.
  */
 @Configuration
-public class WindowsMenuConfiguration {
+public class ViewsConfiguration {
 
     @Bean
-    public WindowsMenuController windowsMenuController() {
-        return new WindowsMenuController();
+    public OSDMenuView windowsMenuController() {
+        return new OSDMenuView();
     }
 
     @Bean

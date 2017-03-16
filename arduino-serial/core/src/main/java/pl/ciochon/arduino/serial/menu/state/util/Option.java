@@ -1,6 +1,6 @@
 package pl.ciochon.arduino.serial.menu.state.util;
 
-import pl.ciochon.arduino.serial.menu.windows.Viewable;
+import pl.ciochon.arduino.serial.menu.view.Viewable;
 
 /**
  * Created by Konrad Ciochoń on 2017-02-24.

@@ -1,4 +1,4 @@
-package pl.ciochon.arduino.serial.menu.windows;
+package pl.ciochon.arduino.serial.menu.view;
 
 /**
  * Created by Konrad Ciochoń on 2017-02-24.
