@@ -2,11 +2,17 @@ package pl.ciochon.arduino.serial.menu.state.impl;
 
 import pl.ciochon.arduino.serial.core.command.impl.DelayedShutdownCommand;
 import pl.ciochon.arduino.serial.menu.state.MenuState;
+import pl.ciochon.arduino.serial.menu.state.util.NonRepeatableAction;
+import pl.ciochon.arduino.serial.pilot.PilotKey;
 import pl.ciochon.arduino.serial.pilot.event.PilotEvent;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
+
+import static pl.ciochon.arduino.serial.pilot.PilotKey.*;
 
 /**
  * Created by Konrad Ciochoń on 2017-02-24.
@@ -14,6 +20,23 @@ import java.awt.*;
 public class DelayedShutdownPlanState extends MenuState {
 
     public static final String NAME = "DELAYED_SHUTDOWN_PLAN";
+
+    private static Map<PilotKey, String> numericalValues;
+
+    static {
+        numericalValues = new HashMap<PilotKey, String>() {{
+            put(ONE, "1");
+            put(TWO, "2");
+            put(THREE, "3");
+            put(FOUR, "4");
+            put(FIVE, "5");
+            put(SIX, "6");
+            put(SEVEN, "7");
+            put(EIGHT, "8");
+            put(NINE, "9");
+            put(ZERO, "0");
+        }};
+    }
 
     private JTextField textField;
 
@@ -37,16 +60,18 @@ public class DelayedShutdownPlanState extends MenuState {
     public String onPilotEventAfterMenuShow(PilotEvent pilotEvent) {
         switch (pilotEvent.getPilotKey()) {
             case EXIT:
-                return DelayedShutdownState.NAME;
+                return NonRepeatableAction.perform(pilotEvent, DelayedShutdownState.NAME);
             case ENTER:
-                Long commandArg = getShutdownAfterInMinutes();
-                if (commandArg != null) {
-                    commandExecutor.execute(new DelayedShutdownCommand(commandArg));
-                    OSDMenuView.toggleVisibility(false);
-                    return IdleState.NAME;
-                } else {
-                    return null;
-                }
+                return NonRepeatableAction.performFunctionWithReturnValue(pilotEvent, () -> {
+                    Long commandArg = getShutdownAfterInMinutes();
+                    if (commandArg != null) {
+                        commandExecutor.execute(new DelayedShutdownCommand(commandArg));
+                        OSDMenuView.toggleVisibility(false);
+                        return IdleState.NAME;
+                    } else {
+                        return null;
+                    }
+                });
             case LEFT:
                 if (shutdownAfter.length() != 0) {
                     shutdownAfter = shutdownAfter.substring(0, shutdownAfter.length() - 1);
@@ -54,34 +79,17 @@ public class DelayedShutdownPlanState extends MenuState {
                 }
                 break;
             case ONE:
-                addText("1");
-                break;
             case TWO:
-                addText("2");
-                break;
             case THREE:
-                addText("3");
-                break;
             case FOUR:
-                addText("4");
-                break;
             case FIVE:
-                addText("5");
-                break;
             case SIX:
-                addText("6");
-                break;
             case SEVEN:
-                addText("7");
-                break;
             case EIGHT:
-                addText("8");
-                break;
             case NINE:
-                addText("9");
-                break;
             case ZERO:
-                addText("0");
+                //TODO non repeatable
+                addText(numericalValues.get(pilotEvent.getPilotKey()));
                 break;
         }
         return null;

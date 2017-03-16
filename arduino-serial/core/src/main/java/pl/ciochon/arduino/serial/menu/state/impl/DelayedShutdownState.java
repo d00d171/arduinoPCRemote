@@ -2,6 +2,7 @@ package pl.ciochon.arduino.serial.menu.state.impl;
 
 import pl.ciochon.arduino.serial.core.command.impl.DelayedShutdownCancelCommand;
 import pl.ciochon.arduino.serial.menu.state.MenuState;
+import pl.ciochon.arduino.serial.menu.state.util.NonRepeatableAction;
 import pl.ciochon.arduino.serial.menu.state.util.Option;
 import pl.ciochon.arduino.serial.menu.view.ViewableScrollPane;
 import pl.ciochon.arduino.serial.pilot.event.PilotEvent;
@@ -36,26 +37,27 @@ public class DelayedShutdownState extends MenuState {
     public String onPilotEventAfterMenuShow(PilotEvent pilotEvent) {
         switch (pilotEvent.getPilotKey()) {
             case EXIT:
-                return SysState.NAME;
+                return NonRepeatableAction.perform(pilotEvent, SysState.NAME);
             case DOWN:
-                viewableScrollPane.scrollDown();
-                break;
+                return NonRepeatableAction.performVoidFunction(pilotEvent, () -> viewableScrollPane.scrollDown());
             case UP:
-                viewableScrollPane.scrollUp();
-                break;
+                return NonRepeatableAction.performVoidFunction(pilotEvent, () -> viewableScrollPane.scrollUp());
             case ENTER:
-                switch (viewableScrollPane.getSelectedValue()) {
-                    case DSS_CANCEL_PLANNED:
-                        commandExecutor.execute(new DelayedShutdownCancelCommand());
-                        OSDMenuView.toggleVisibility(false);
-                        return IdleState.NAME;
-                    case DSS_PLAN:
-                        return DelayedShutdownPlanState.NAME;
-                    default:
-                        return null;
-                }
+                return NonRepeatableAction.performFunctionWithReturnValue(pilotEvent, () -> {
+                    switch (viewableScrollPane.getSelectedValue()) {
+                        case DSS_CANCEL_PLANNED:
+                            commandExecutor.execute(new DelayedShutdownCancelCommand());
+                            OSDMenuView.toggleVisibility(false);
+                            return IdleState.NAME;
+                        case DSS_PLAN:
+                            return DelayedShutdownPlanState.NAME;
+                        default:
+                            return null;
+                    }
+                });
+            default:
+                return null;
         }
-        return null;
     }
 
     @PostConstruct

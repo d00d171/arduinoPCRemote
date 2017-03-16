@@ -3,12 +3,18 @@ package pl.ciochon.arduino.serial.support.spring;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import pl.ciochon.arduino.serial.menu.state.impl.*;
+import pl.ciochon.arduino.serial.menu.state.util.NonRepeatableAction;
 
 /**
  * Created by Konrad Ciochoń on 2017-02-11.
  */
 @Configuration
 public class MenuStatesConfiguration {
+
+    @Bean
+    public NonRepeatableAction nonRepeatableCall() {
+        return new NonRepeatableAction();
+    }
 
     @Bean(name = IdleState.NAME)
     public IdleState idleState() {

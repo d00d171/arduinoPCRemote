@@ -1,6 +1,7 @@
 package pl.ciochon.arduino.serial.menu.state.impl;
 
 import pl.ciochon.arduino.serial.menu.state.MenuState;
+import pl.ciochon.arduino.serial.menu.state.util.NonRepeatableAction;
 import pl.ciochon.arduino.serial.menu.state.util.Option;
 import pl.ciochon.arduino.serial.menu.view.ViewableScrollPane;
 import pl.ciochon.arduino.serial.pilot.event.PilotEvent;
@@ -35,25 +36,26 @@ public class IdleState extends MenuState {
     public String onPilotEventAfterMenuShow(PilotEvent pilotEvent) {
         switch (pilotEvent.getPilotKey()) {
             case EXIT:
-                hideMenu();
-                break;
+                return NonRepeatableAction.performVoidFunction(pilotEvent, this::hideMenu);
             case DOWN:
-                viewableScrollPane.scrollDown();
-                break;
+                return NonRepeatableAction.performVoidFunction(pilotEvent, () -> viewableScrollPane.scrollDown());
             case UP:
-                viewableScrollPane.scrollUp();
-                break;
+                return NonRepeatableAction.performVoidFunction(pilotEvent, () -> viewableScrollPane.scrollUp());
             case ENTER:
-                switch (viewableScrollPane.getSelectedValue()) {
-                    case MM_MPC:
-                        return MpcState.NAME;
-                    case MM_SYSTEM:
-                        return SysState.NAME;
-                    default:
-                        return null;
-                }
+                return NonRepeatableAction.performFunctionWithReturnValue(pilotEvent, () -> {
+                    switch (viewableScrollPane.getSelectedValue()) {
+                        case MM_MPC:
+                            return MpcState.NAME;
+                        case MM_SYSTEM:
+                            return SysState.NAME;
+                        default:
+                            return null;
+                    }
+                });
+            default:
+                return null;
+
         }
-        return null;
     }
 
     @PostConstruct

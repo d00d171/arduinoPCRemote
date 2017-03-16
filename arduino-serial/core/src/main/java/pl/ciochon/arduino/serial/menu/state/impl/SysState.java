@@ -2,6 +2,7 @@ package pl.ciochon.arduino.serial.menu.state.impl;
 
 import pl.ciochon.arduino.serial.core.command.impl.DelayedShutdownCommand;
 import pl.ciochon.arduino.serial.menu.state.MenuState;
+import pl.ciochon.arduino.serial.menu.state.util.NonRepeatableAction;
 import pl.ciochon.arduino.serial.menu.state.util.Option;
 import pl.ciochon.arduino.serial.menu.view.ViewableScrollPane;
 import pl.ciochon.arduino.serial.pilot.event.PilotEvent;
@@ -36,25 +37,28 @@ public class SysState extends MenuState {
     public String onPilotEventAfterMenuShow(PilotEvent pilotEvent) {
         switch (pilotEvent.getPilotKey()) {
             case EXIT:
-                return IdleState.NAME;
+                return NonRepeatableAction.perform(pilotEvent, IdleState.NAME);
             case DOWN:
-                viewableScrollPane.scrollDown();
-                break;
+                return NonRepeatableAction.performVoidFunction(pilotEvent, () -> viewableScrollPane.scrollDown());
             case UP:
-                viewableScrollPane.scrollUp();
-                break;
+                return NonRepeatableAction.performVoidFunction(pilotEvent, () -> viewableScrollPane.scrollUp());
             case ENTER:
-                switch (viewableScrollPane.getSelectedValue()) {
-                    case SYS_SHUTDOWN:
-                        commandExecutor.execute(new DelayedShutdownCommand(0L));
-                        return null;
-                    case SYS_DELAYED_SHUTDOWN:
-                        return DelayedShutdownState.NAME;
-                    case SYS_CURSOR_CONTROL:
-                        return CursorControlState.NAME;
-                }
+                return NonRepeatableAction.performFunctionWithReturnValue(pilotEvent, () -> {
+                    switch (viewableScrollPane.getSelectedValue()) {
+                        case SYS_SHUTDOWN:
+                            commandExecutor.execute(new DelayedShutdownCommand(0L));
+                            return null;
+                        case SYS_DELAYED_SHUTDOWN:
+                            return DelayedShutdownState.NAME;
+                        case SYS_CURSOR_CONTROL:
+                            return CursorControlState.NAME;
+                        default:
+                            return null;
+                    }
+                });
+            default:
+                return null;
         }
-        return null;
     }
 
     @PostConstruct

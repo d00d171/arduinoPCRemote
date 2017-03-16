@@ -3,6 +3,7 @@ package pl.ciochon.arduino.serial.menu.state.impl;
 import pl.ciochon.arduino.serial.core.command.impl.MouseClickCommand;
 import pl.ciochon.arduino.serial.core.command.impl.MoveCursorCommand;
 import pl.ciochon.arduino.serial.menu.state.MenuState;
+import pl.ciochon.arduino.serial.menu.state.util.NonRepeatableAction;
 import pl.ciochon.arduino.serial.pilot.event.PilotEvent;
 
 import java.util.Optional;
@@ -30,19 +31,18 @@ public class CursorControlState extends MenuState {
                 return Optional.of(SysState.NAME);
             case LEFT:
                 commandExecutor.execute(new MoveCursorCommand(-1 * applyRepeat(pilotEvent, MOVE_X), 0));
-                return Optional.ofNullable("");
+                return Optional.of("");
             case RIGHT:
                 commandExecutor.execute(new MoveCursorCommand(applyRepeat(pilotEvent, MOVE_X), 0));
-                return Optional.ofNullable("");
+                return Optional.of("");
             case UP:
                 commandExecutor.execute(new MoveCursorCommand(0, -1 * applyRepeat(pilotEvent, MOVE_Y)));
-                return Optional.ofNullable("");
+                return Optional.of("");
             case DOWN:
                 commandExecutor.execute(new MoveCursorCommand(0, applyRepeat(pilotEvent, MOVE_Y)));
-                return Optional.ofNullable("");
+                return Optional.of("");
             case ENTER:
-                commandExecutor.execute(new MouseClickCommand());
-                return Optional.ofNullable("");
+                return NonRepeatableAction.performCommand(pilotEvent, new MouseClickCommand(), Optional.of(""));
             default:
                 return Optional.empty();
         }

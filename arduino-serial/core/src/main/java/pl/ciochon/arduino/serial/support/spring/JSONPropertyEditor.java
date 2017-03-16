@@ -31,7 +31,7 @@ public class JSONPropertyEditor extends PropertyEditorSupport {
         try {
             setValue(new ObjectMapper().readValue(text, Map.class));
         } catch (IOException e) {
-            logger.error("Error reading value", e);
+            logger.error("Error setting value", e);
         }
     }
 }

@@ -8,6 +8,7 @@ import pl.ciochon.arduino.serial.core.command.impl.DelayedShutdownCommand;
 import pl.ciochon.arduino.serial.core.command.impl.MuteCommand;
 import pl.ciochon.arduino.serial.core.command.impl.VolumeChangeCommand;
 import pl.ciochon.arduino.serial.menu.state.impl.DelayedShutdownState;
+import pl.ciochon.arduino.serial.menu.state.util.NonRepeatableAction;
 import pl.ciochon.arduino.serial.menu.view.OSDMenuView;
 import pl.ciochon.arduino.serial.menu.view.ViewableListCellRenderer;
 import pl.ciochon.arduino.serial.menu.view.util.Fonts;
@@ -74,17 +75,13 @@ public abstract class MenuState {
                     commandExecutor.execute(new VolumeChangeCommand(1000L + 200 * pilotEvent.getRepeatCount()));
                     return null;
                 case MUTE:
-                    commandExecutor.execute(new MuteCommand());
-                    return null;
+                    return NonRepeatableAction.performCommand(pilotEvent, new MuteCommand());
                 case POWER:
-                    commandExecutor.execute(new DelayedShutdownCommand(0L));
-                    return null;
+                    return NonRepeatableAction.performCommand(pilotEvent, new DelayedShutdownCommand(0L));
                 case MENU:
-                    toggleMenuVisibility();
-                    return null;
+                    return NonRepeatableAction.performVoidFunction(pilotEvent, this::toggleMenuVisibility);
                 case SLEEP:
-                    showMenu();
-                    return DelayedShutdownState.NAME;
+                    return NonRepeatableAction.performVoidFunction(pilotEvent, this::showMenu, DelayedShutdownState.NAME);
                 default:
                     if (showMenu()) {
                         return null;
@@ -111,7 +108,7 @@ public abstract class MenuState {
         logger.debug("Transition to state: " + getName());
     }
 
-    private void toggleMenuVisibility() {
+    protected void toggleMenuVisibility() {
         boolean value = !OSDMenuView.isVisible() ? true : false;
         OSDMenuView.toggleVisibility(value);
     }
