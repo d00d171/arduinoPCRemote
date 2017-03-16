@@ -1,14 +1,14 @@
 package pl.ciochon.arduino.serial.core.command;
 
 import org.springframework.beans.factory.annotation.Value;
+import pl.ciochon.arduino.serial.support.spring.ApplicationContextProvider;
 
 /**
  * Created by Konrad Ciochoń on 2017-02-09.
  */
 public abstract class BaseNIRCMDCommand extends BaseCmdStartCommand {
 
-    //TODO koniecznie poprawic
-    private String nirCmdPath = "E:\\PROJECTS\\ArduinoSerialClient\\runner\\bin\\nircmd.exe";
+    private String nirCmdPath = ApplicationContextProvider.getProperty("nir.cmd.path");
 
     public abstract String getNirCmdArguments();
 

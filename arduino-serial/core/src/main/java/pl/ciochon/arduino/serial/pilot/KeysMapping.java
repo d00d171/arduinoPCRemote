@@ -1,6 +1,6 @@
-package pl.ciochon.arduino.serial.core.util;
+package pl.ciochon.arduino.serial.pilot;
 
-import pl.ciochon.arduino.serial.pilot.PilotKey;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -8,16 +8,17 @@ import java.util.stream.Collectors;
 /**
  * Created by Konrad Ciochoń on 2017-03-01.
  */
-public class AppConfiguration {
+public class KeysMapping {
 
     private Map<PilotKey, Long> keysMap;
-    
+
     private Map<Long, PilotKey> codesMap;
 
     public Map<PilotKey, Long> getKeysMap() {
         return keysMap;
     }
 
+    @Value("${keys.map}")
     public void setKeysMap(Map<PilotKey, Long> keysMap) {
         this.keysMap = keysMap;
         codesMap = keysMap.entrySet()

@@ -17,4 +17,9 @@ public class ApplicationConfiguration {
         return new ContextRefreshedListener();
     }
 
+    @Bean
+    public ApplicationContextProvider applicationContextProvider() {
+        return new ApplicationContextProvider();
+    }
+
 }

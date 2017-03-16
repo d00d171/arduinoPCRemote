@@ -1,7 +1,7 @@
 package pl.ciochon.arduino.serial.app;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import pl.ciochon.arduino.serial.core.util.AppConfiguration;
+import pl.ciochon.arduino.serial.pilot.KeysMapping;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,7 +18,7 @@ public class TestClass {
         TestClass testClass = new TestClass();
 
         try {
-            AppConfiguration appConfiguration = objectMapper.readValue(new File(testClass.getClass().getClassLoader().getResource("app.properties").getFile()), AppConfiguration.class);
+            KeysMapping appConfiguration = objectMapper.readValue(new File(testClass.getClass().getClassLoader().getResource("app.properties").getFile()), KeysMapping.class);
         } catch (IOException e) {
             e.printStackTrace();
         }

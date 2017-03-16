@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Import;
 import pl.ciochon.arduino.serial.core.connection.Connection;
 import pl.ciochon.arduino.serial.core.connection.SerialListener;
 import pl.ciochon.arduino.serial.core.connection.SerialWriter;
-import pl.ciochon.arduino.serial.core.util.AppConfigurationHolder;
 
 /**
  * Created by Konrad Ciochoń on 2017-02-11.
@@ -36,11 +35,6 @@ public class CoreConfiguration {
     @Bean
     public ObjectMapper objectMapper() {
         return new ObjectMapper();
-    }
-
-    @Bean
-    public AppConfigurationHolder appConfigurationHolder() {
-        return new AppConfigurationHolder();
     }
 
 }

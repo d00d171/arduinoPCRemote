@@ -23,10 +23,10 @@ public class Icons {
 
     @PostConstruct
     public void init() {
-        CHANNEL_MINUS_ICON = menuUtil.createImage(getPath("CH-.png"), ICON_WIDHT, ICON_HEIGHT);
-        CHANNEL_PLUS_ICON = menuUtil.createImage(getPath("CH+.png"), ICON_WIDHT, ICON_HEIGHT);
-        CHANNEL_ICON = menuUtil.createImage(getPath("CH.png"), ICON_WIDHT, ICON_HEIGHT);
-        EQ_ICON = menuUtil.createImage(getPath("EQ.png"), ICON_WIDHT, ICON_HEIGHT);
+//        CHANNEL_MINUS_ICON = menuUtil.createImage(getPath("CH-.png"), ICON_WIDHT, ICON_HEIGHT);
+//        CHANNEL_PLUS_ICON = menuUtil.createImage(getPath("CH+.png"), ICON_WIDHT, ICON_HEIGHT);
+//        CHANNEL_ICON = menuUtil.createImage(getPath("CH.png"), ICON_WIDHT, ICON_HEIGHT);
+//        EQ_ICON = menuUtil.createImage(getPath("EQ.png"), ICON_WIDHT, ICON_HEIGHT);
     }
 
 
